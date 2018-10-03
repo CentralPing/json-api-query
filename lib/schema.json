@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "jsonapi.json",
+  "title": "JSON API Request Validation",
+  "description": "Validation schema for validating JSON API querystrings",
+  "type": "object",
+  "properties": {
+    "fields": {
+      "description": "",
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true,
+        "minItems": 1
+      },
+      "minProperties": 1
+    },
+    "filter": {
+      "description": "",
+      "type": "object",
+      "minProperties": 1
+    },
+    "include": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "page": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "dependencies": {
+        "offset": ["limit"],
+        "number": ["size"]
+      },
+      "additionalProperties": false,
+      "minProperties": 1,
+      "if": {"required": ["cursor"]},
+      "then": {"maxProperties": 1},
+      "else": {
+        "maxProperties": 2,
+        "if": {"required": ["size"]},
+        "then": {"not": {"required": ["limit"]}}
+      }
+    },
+    "sort": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  },
+  "if": {
+    "required": ["page"],
+    "properties": {"page": {"required": ["cursor"]}}
+  },
+  "then": {"not": {"anyOf": [
+    {"required": ["fields"]},
+    {"required": ["filter"]},
+    {"required": ["include"]},
+    {"required": ["sort"]}
+  ]}}
+}

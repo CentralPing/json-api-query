@@ -1,0 +1,37 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:jest/recommended",
+    "google"
+  ],
+  "env": {
+    "jest": true,
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
+  },
+  "plugins": [
+    "node",
+    "jest",
+    "import"
+  ],
+  "rules": {
+    "max-len": "warn",
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "never"],
+    "no-use-before-define": ["error", { "functions": false }],
+    "space-before-function-paren": ["error", { "anonymous": "always", "named": "never", "asyncArrow": "always" }],
+    "no-param-reassign": ["error", { "props": false }],
+    "function-paren-newline": ["error", "consistent"],
+    "no-console": 1
+  }
+}

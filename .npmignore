@@ -1,0 +1,7 @@
+docs
+coverage
+.coveralls.yml
+.eslintrc
+.eslintignore
+.gitignore
+.travis.yml
