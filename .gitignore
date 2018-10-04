@@ -5,6 +5,7 @@ node_modules
 coverage
 npm-debug.log
 package-lock.json
+.coveralls.yml
 .vscode
 .tmp
 .DS_Store
