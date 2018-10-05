@@ -38,9 +38,9 @@ An extensible [JSON Schema](http://json-schema.org) for validating and optionall
 <a name="module_jsonApiQuery..schema"></a>
 
 ### jsonApiQuery~schema : <code>Object</code>
-Module property that generates a new deep copy of the default schema on every import. Apply
-any extensions and provide as an optional schema for the `validate`
-method.
+Module property that generates a new deep copy of the default schema
+on every import. Apply any extensions and provide as an optional schema
+for the `validate` method.
 
 **Kind**: inner property of [<code>jsonApiQuery</code>](#module_jsonApiQuery)  
 <a name="module_jsonApiQuery..validate"></a>
@@ -51,9 +51,9 @@ method.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [options] | <code>Object</code> |  | any AJV option |
-| [options.coerceTypes] | <code>Boolean</code> \| <code>String</code> | <code>&#x27;array&#x27;</code> | coerce validated values to specified types |
-| [options.ownProperties] | <code>Boolean</code> | <code>true</code> | restrict validation to own properties of data object |
+| [options] | <code>Object</code> |  | any AJV option. |
+| [options.coerceTypes] | <code>Boolean</code> \| <code>String</code> | <code>&#x27;array&#x27;</code> | coerce validated values to specified types. |
+| [options.ownProperties] | <code>Boolean</code> | <code>true</code> | restrict validation to own properties of data object. |
 | [schema] | <code>Object</code> |  | JSON Schema. Defaults to the included `schema`. |
 
 **Example**  
@@ -88,7 +88,7 @@ if (!valid) {
 ### For Extended Verification
 
 ```js
-const {validate, json-schema} = require('json-api-query');
+const {validate, schema} = require('json-api-query');
 
 // extend schema
 
@@ -102,6 +102,21 @@ if (!valid) {
   console.log(validator.errors);
 }
 ```
+
+### For AJV options
+
+```js
+const {validate} = require('json-api-query');
+
+const validator = validate({allErrors: true});
+
+// queryParams would be an query param object to validate/coerce
+const valid = validator(queryParams);
+
+if (!valid) {
+  // Log errors
+  console.log(validator.errors);
+}
 
 ## Test
 

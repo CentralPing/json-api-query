@@ -61,7 +61,7 @@ if (!valid) {
 ### For Extended Verification
 
 ```js
-const {validate, json-schema} = require('json-api-query');
+const {validate, schema} = require('json-api-query');
 
 // extend schema
 
@@ -75,6 +75,21 @@ if (!valid) {
   console.log(validator.errors);
 }
 ```
+
+### For AJV options
+
+```js
+const {validate} = require('json-api-query');
+
+const validator = validate({allErrors: true});
+
+// queryParams would be an query param object to validate/coerce
+const valid = validator(queryParams);
+
+if (!valid) {
+  // Log errors
+  console.log(validator.errors);
+}
 
 ## Test
 
