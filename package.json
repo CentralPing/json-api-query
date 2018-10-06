@@ -37,10 +37,10 @@
   },
   "homepage": "https://github.com/CentralPing/json-api-query",
   "dependencies": {
+    "ajv": "^6.5.4",
     "esm": "^3.0.84"
   },
   "devDependencies": {
-    "ajv": "^6.5.4",
     "coveralls": "^3.0.2",
     "eslint": "^5.6.1",
     "eslint-config-google": "^0.10.0",
