@@ -1,3 +1,17 @@
+#### v0.0.3 (2018-10-06)
+
+##### Chores
+
+* **package:**  remove unused dev dependency ([89239b82](https://github.com/CentralPing/json-api-query/commit/89239b828e850cadc6c14d53a8b74f25e3dd8d12))
+
+##### Documentation Changes
+
+* **readme:**  add example for AJV options; correct optional schema example ([9f788af9](https://github.com/CentralPing/json-api-query/commit/9f788af940e0f26fb9039d18166d74662b892f94))
+
+##### Bug Fixes
+
+* **package:**  include AJV as a dependency ([32f74354](https://github.com/CentralPing/json-api-query/commit/32f743544eea570a8c92dbaf6136ab86a79c7060))
+
 #### v0.0.2 (2018-10-04)
 
 ##### Chores
