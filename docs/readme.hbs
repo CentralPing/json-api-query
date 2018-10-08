@@ -19,7 +19,7 @@ An extensible [JSON Schema](http://json-schema.org) for validating and optionall
 {
   include: 'author',
   fields: {
-    articles: 'title,body'
+    articles: ['title', 'body']
   },
   fields: {
     people: 'name'
