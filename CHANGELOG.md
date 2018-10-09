@@ -1,3 +1,19 @@
+#### v0.1.0 (2018-10-09)
+
+##### Documentation Changes
+
+* **readme:**
+  *  include documentation for parse method ([319508b3](https://github.com/CentralPing/json-api-query/commit/319508b3b47615e98da91ada0829b44dea2a69ae))
+  *  correct array value in example code ([e0009659](https://github.com/CentralPing/json-api-query/commit/e00096597f51ae0ce639bb307fa10998a2501fd3))
+
+##### New Features
+
+* **main, parse:**  export method to parse URL strings for JSON API query validation ([07240b3f](https://github.com/CentralPing/json-api-query/commit/07240b3f28d4a0fd73083830c3b2c1b188da9aa3))
+
+##### Tests
+
+* **index, main, parse:**  ensure parse method satisfies API contract and is exported ([f469194b](https://github.com/CentralPing/json-api-query/commit/f469194b7d6a4d79e8dff992b5f239433b634485))
+
 #### v0.0.3 (2018-10-06)
 
 ##### Chores
