@@ -1,3 +1,9 @@
+#### v0.1.1 (2018-10-09)
+
+##### New Features
+
+* **main:**  make schema property enumerable and configurable ([e744af3b](https://github.com/CentralPing/json-api-query/commit/e744af3b27ef5781d6b9b26dbeb06e633fb3db64))
+
 #### v0.1.0 (2018-10-09)
 
 ##### Documentation Changes
