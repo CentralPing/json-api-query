@@ -43,6 +43,31 @@ on every import. Apply any extensions and provide as an optional schema
 for the `validate` method.
 
 **Kind**: inner property of [<code>jsonApiQuery</code>](#module_jsonApiQuery)  
+<a name="module_jsonApiQuery..parse"></a>
+
+### jsonApiQuery~parse ⇒ <code>Object</code>
+**Kind**: inner property of [<code>jsonApiQuery</code>](#module_jsonApiQuery)  
+**Returns**: <code>Object</code> - A url parse object.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | <code>String</code> | Any URL string. |
+
+**Example**  
+```js
+const url = '/foo/bar?include=author&fields%5Barticles%5D=title%2Cbody&fields%5Bpeople%5D=name';
+const {query, pathname, ...extra} = parse(url);
+// query
+// {
+//   include: [ 'author' ],
+//   fields: {
+//     articles: ['title', 'body'],
+//     people: ['name']
+//   }
+// }
+// pathname
+// '/foo/bar'
+```
 <a name="module_jsonApiQuery..validate"></a>
 
 ### jsonApiQuery~validate ⇒ <code>function</code>
@@ -117,6 +142,23 @@ if (!valid) {
   // Log errors
   console.log(validator.errors);
 }
+```
+
+### For Parsing & Verification
+
+```js
+const {parse, validate} = require('json-api-query');
+
+const validator = validate();
+const {query} = parse(url); // url is a string
+
+const valid = validator(query);
+
+if (!valid) {
+  // Log errors
+  console.log(validator.errors);
+}
+```
 
 ## Test
 

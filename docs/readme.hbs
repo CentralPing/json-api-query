@@ -90,6 +90,23 @@ if (!valid) {
   // Log errors
   console.log(validator.errors);
 }
+```
+
+### For Parsing & Verification
+
+```js
+const {parse, validate} = require('json-api-query');
+
+const validator = validate();
+const {query} = parse(url); // url is a string
+
+const valid = validator(query);
+
+if (!valid) {
+  // Log errors
+  console.log(validator.errors);
+}
+```
 
 ## Test
 
