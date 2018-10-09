@@ -97,7 +97,7 @@ if (!valid) {
 ### For Default Verification
 
 ```js
-const {validate} = require('json-api-query');
+const {validate} = require('@centralping/json-api-query');
 
 const validator = validate();
 
@@ -113,7 +113,7 @@ if (!valid) {
 ### For Extended Verification
 
 ```js
-const {validate, schema} = require('json-api-query');
+const {validate, schema} = require('@centralping/json-api-query');
 
 // extend schema
 
@@ -131,7 +131,7 @@ if (!valid) {
 ### For AJV options
 
 ```js
-const {validate} = require('json-api-query');
+const {validate} = require('@centralping/json-api-query');
 
 const validator = validate({allErrors: true});
 
@@ -147,7 +147,7 @@ if (!valid) {
 ### For Parsing & Verification
 
 ```js
-const {parse, validate} = require('json-api-query');
+const {parse, validate} = require('@centralping/json-api-query');
 
 const validator = validate();
 const {query} = parse(url); // url is a string
