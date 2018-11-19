@@ -1,3 +1,20 @@
+#### v0.1.2 (2018-11-19)
+
+##### Chores
+
+* **package:**
+  *  update eslint-plugin-jest to version 22.0.0 ([db5c9991](https://github.com/CentralPing/json-api-query/commit/db5c99911e767c13098a80ae10ffe641f07f262e))
+  *  update eslint-plugin-node to version 8.0.0 ([b246e1bb](https://github.com/CentralPing/json-api-query/commit/b246e1bb0f8c760bed490d31b7d7373a14b77934))
+  *  update eslint-config-google to version 0.11.0 ([11e8e55b](https://github.com/CentralPing/json-api-query/commit/11e8e55b4ac4bbb62b42ff449a6b27209aa6352c))
+
+##### Documentation Changes
+
+* **readme:**  use correct package name in examples ([3e5a1a01](https://github.com/CentralPing/json-api-query/commit/3e5a1a01863090510105ae2ad3a84778a9416f36))
+
+##### Code Style Changes
+
+* **main, validate:**  require schema with explicit json extension for webpack issue ([acfa99cb](https://github.com/CentralPing/json-api-query/commit/acfa99cb3233e9ed1c952e944c38e04cbea8d78c))
+
 #### v0.1.1 (2018-10-09)
 
 ##### New Features
