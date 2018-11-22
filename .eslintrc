@@ -22,7 +22,7 @@
     "import"
   ],
   "rules": {
-    "max-len": "warn",
+    "max-len": ["warn", { "ignoreComments": true, "ignoreStrings": true }],
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
