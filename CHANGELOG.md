@@ -1,3 +1,19 @@
+#### v0.1.3 (2018-11-22)
+
+##### Chores
+
+* **package:**  update dependencies ([8073207b](https://github.com/CentralPing/json-api-query/commit/8073207baced8f3bfff63ff6a2556dc35c967c56))
+* **eslint:**  allow commment legnth to exceed 80 characters ([deaf848d](https://github.com/CentralPing/json-api-query/commit/deaf848d8bb0e7eaca5b8f89dce751a433314583))
+
+##### Bug Fixes
+
+* **schema:**  enfore compliance of extra query params with JSON API spec ([737f331f](https://github.com/CentralPing/json-api-query/commit/737f331f11c197c06829cd38085a40efcf50c3db))
+* **validate:**  use pointers to comply with JSON API spec ([bbae06df](https://github.com/CentralPing/json-api-query/commit/bbae06df8238d5597eb54226afa0d1f7ef8d2096))
+
+##### Tests
+
+* **schema:**  ensure extra query params follow JSON API spec ([c320089a](https://github.com/CentralPing/json-api-query/commit/c320089abf28cea20fd5e73e7da7886bac3cce91))
+
 #### v0.1.2 (2018-11-19)
 
 ##### Chores
