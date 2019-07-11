@@ -42,14 +42,14 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.2",
-    "eslint": "^5.9.0",
+    "eslint": "^6.0.0",
     "eslint-config-google": "^0.13.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.0.0",
-    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-node": "^9.0.0",
     "generate-changelog": "git+https://github.com/JasonCust/generate-changelog.git",
     "jest": "^23.6.0",
-    "jsdoc-to-markdown": "^4.0.1"
+    "jsdoc-to-markdown": "^5.0.0"
   },
   "jest": {
     "testEnvironment": "node",
