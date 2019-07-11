@@ -49,7 +49,7 @@
     "eslint-plugin-node": "^9.0.0",
     "generate-changelog": "git+https://github.com/JasonCust/generate-changelog.git",
     "jest": "^23.6.0",
-    "jsdoc-to-markdown": "^4.0.1"
+    "jsdoc-to-markdown": "^5.0.0"
   },
   "jest": {
     "testEnvironment": "node",
