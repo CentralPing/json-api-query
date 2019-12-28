@@ -45,7 +45,7 @@
     "eslint": "^6.0.0",
     "eslint-config-google": "^0.13.0",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^22.15.2",
+    "eslint-plugin-jest": "^23.2.0",
     "eslint-plugin-node": "^10.0.0",
     "generate-changelog": "git+https://github.com/JasonCust/generate-changelog.git",
     "jest": "^23.6.0",
