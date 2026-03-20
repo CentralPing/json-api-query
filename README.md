@@ -1,177 +1,107 @@
-# @CentralPing/json-api-query
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-wordmark-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo-wordmark-light.svg">
+    <img alt="CentralPing" src="assets/logo-wordmark-light.svg" width="240">
+  </picture>
+</p>
 
-[![Build Status](https://travis-ci.org/CentralPing/json-api-query.svg?branch=master)](https://travis-ci.org/CentralPing/json-api-query)
-[![Coverage Status](https://coveralls.io/repos/github/CentralPing/json-api-query/badge.svg)](https://coveralls.io/github/CentralPing/json-api-query)
-[![Dependency Status](https://david-dm.org/CentralPing/json-api-query.svg)](https://david-dm.org/CentralPing/json-api-query)
-[![Greenkeeper Status](https://badges.greenkeeper.io/CentralPing/json-api-query.svg)](https://greenkeeper.io/)
-[![Known Vulnerabilities](https://snyk.io/test/github/centralping/json-api-query/badge.svg)](https://snyk.io/test/github/centralping/json-api-query)
+[![CI](https://github.com/CentralPing/json-api-query/actions/workflows/ci.yml/badge.svg)](https://github.com/CentralPing/json-api-query/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/CentralPing/json-api-query/branch/main/graph/badge.svg)](https://codecov.io/gh/CentralPing/json-api-query)
+[![npm version](https://img.shields.io/npm/v/@centralping/json-api-query.svg)](https://www.npmjs.com/package/@centralping/json-api-query)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/CentralPing/json-api-query/badge)](https://scorecard.dev/viewer/?uri=github.com/CentralPing/json-api-query)
+[![Node.js >=22](https://img.shields.io/badge/node-%3E%3D22-brightgreen)](https://nodejs.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-An extensible [JSON Schema](http://json-schema.org) for validating and optionally coercing [JSON API](http://jsonapi.org/) query parameters for [fetching data](http://jsonapi.org/format/#fetching).
+An extensible [JSON Schema](https://json-schema.org/) for validating and optionally coercing [JSON:API](https://jsonapi.org/) query parameters for [fetching data](https://jsonapi.org/format/#fetching). Uses [AJV 8](https://ajv.js.org/) with [JSON Schema 2020-12](https://json-schema.org/draft/2020-12/schema).
 
-## Notes
+## Features
 
-* The request querystring is expected to have been parsed into an object.
-```js
-// Example Original URL:
-// http://localhost:3000/?include=author&fields%5Barticles%5D=title%2Cbody&fields%5Bpeople%5D=name
-
-// Parsed querystring:
-{
-  include: 'author',
-  fields: {
-    articles: ['title', 'body']
-  },
-  fields: {
-    people: 'name'
-  }
-}
-```
-* The values of the query object can be strings or coerced to expected value types prior to validation. By default the object values will be coerced if strings and validation succeeds.
-* Per the JSON API specification, any additional query parameters are ignored for validation and coercion by the validation method.
+- **Validates** `fields`, `filter`, `include`, `page`, and `sort` query parameters per the [JSON:API specification](https://jsonapi.org/format/#fetching)
+- **Coerces** single-value strings to arrays (e.g. `include: 'author'` becomes `include: ['author']`)
+- **Pagination** supports cursor, page/size, and limit/offset strategies with mutual exclusion rules
+- **Extensible** schema can be cloned and customized for application-specific constraints
+- **Zero config** sensible defaults out of the box
 
 ## Installation
 
-`npm i --save @centralping/json-api-query`
-
-## API Reference
-
-<a name="module_jsonApiQuery..schema"></a>
-
-### jsonApiQuery~schema : <code>Object</code>
-Module property that generates a new deep copy of the default schema
-on every import. Apply any extensions and provide as an optional schema
-for the `validate` method.
-
-**Kind**: inner property of [<code>jsonApiQuery</code>](#module_jsonApiQuery)  
-<a name="module_jsonApiQuery..parse"></a>
-
-### jsonApiQuery~parse ⇒ <code>Object</code>
-**Kind**: inner property of [<code>jsonApiQuery</code>](#module_jsonApiQuery)  
-**Returns**: <code>Object</code> - A url parse object.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| url | <code>String</code> | Any URL string. |
-
-**Example**  
-```js
-const url = '/foo/bar?include=author&fields%5Barticles%5D=title%2Cbody&fields%5Bpeople%5D=name';
-const {query, pathname, ...extra} = parse(url);
-// query
-// {
-//   include: [ 'author' ],
-//   fields: {
-//     articles: ['title', 'body'],
-//     people: ['name']
-//   }
-// }
-// pathname
-// '/foo/bar'
-```
-<a name="module_jsonApiQuery..validate"></a>
-
-### jsonApiQuery~validate ⇒ <code>function</code>
-**Kind**: inner property of [<code>jsonApiQuery</code>](#module_jsonApiQuery)  
-**Returns**: <code>function</code> - the configured validator function  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [options] | <code>Object</code> |  | any AJV option. |
-| [options.coerceTypes] | <code>Boolean</code> \| <code>String</code> | <code>&#x27;array&#x27;</code> | coerce validated values to specified types. |
-| [options.ownProperties] | <code>Boolean</code> | <code>true</code> | restrict validation to own properties of data object. |
-| [schema] | <code>Object</code> |  | JSON Schema. Defaults to the included `schema`. |
-
-**Example**  
-```js
-const validator = validate();
-const valid = validator(queryParams); // where queryParams is an object
-
-if (!valid) {
-  // Log errors
-  console.log(validator.errors);
-}
+```bash
+npm install @centralping/json-api-query
 ```
 
-## Examples
+Requires **Node.js >= 22**.
 
-### For Default Verification
+## Usage
+
+### Default Validation
 
 ```js
-const {validate} = require('@centralping/json-api-query');
+import {validate} from '@centralping/json-api-query';
 
 const validator = validate();
-
-// queryParams would be an query param object to validate/coerce
-const valid = validator(queryParams);
+const valid = validator(queryParams); // where queryParams is a parsed object
 
 if (!valid) {
-  // Log errors
   console.log(validator.errors);
 }
 ```
 
-### For Extended Verification
+### Extended Schema
 
 ```js
-const {validate, schema} = require('@centralping/json-api-query');
+import {validate, schema} from '@centralping/json-api-query';
 
-// extend schema
+// Clone and extend the default schema
+const customSchema = structuredClone(schema);
+customSchema.properties.fields.propertyNames = {enum: ['articles', 'people']};
+customSchema.properties.include.items.enum = ['author', 'comments'];
 
-const validator = validate(undefined, schema);
-
-// queryParams would be an query param object to validate/coerce
-const valid = validator(queryParams);
-
-if (!valid) {
-  // Log errors
-  console.log(validator.errors);
-}
+const validator = validate({}, customSchema);
 ```
 
-### For AJV options
+### Custom AJV Options
 
 ```js
-const {validate} = require('@centralping/json-api-query');
+import {validate} from '@centralping/json-api-query';
 
-const validator = validate({allErrors: true});
-
-// queryParams would be an query param object to validate/coerce
-const valid = validator(queryParams);
-
-if (!valid) {
-  // Log errors
-  console.log(validator.errors);
-}
+const validator = validate({allErrors: true, coerceTypes: false});
 ```
 
-### For Parsing & Verification
+## API
 
-```js
-const {parse, validate} = require('@centralping/json-api-query');
+### `validate([options], [schema])`
 
-const validator = validate();
-const {query} = parse(url); // url is a string
+Creates a compiled validator function.
 
-const valid = validator(query);
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `options` | `object` | `{}` | Any [AJV option](https://ajv.js.org/options.html). |
+| `options.coerceTypes` | `boolean\|string` | `'array'` | Coerce validated values to specified types. |
+| `options.ownProperties` | `boolean` | `true` | Restrict validation to own properties. |
+| `schema` | `object` | built-in | JSON Schema 2020-12 definition. |
 
-if (!valid) {
-  // Log errors
-  console.log(validator.errors);
-}
+**Returns** a validator function. Call it with a query object; it returns `true`/`false` and populates `.errors` on failure.
+
+### `schema`
+
+A deep copy of the default JSON:API query schema. Clone with `structuredClone(schema)` before mutating.
+
+## Notes
+
+- The request querystring is expected to have been parsed into an object before validation.
+- Per the JSON:API specification, custom query parameters whose names contain only lowercase `a-z` characters are rejected. Parameters with at least one non-lowercase character (e.g. `_meta`, `Foo`) are allowed.
+- Cursor-based pagination cannot be combined with `fields`, `filter`, `include`, or `sort`.
+
+## Development
+
+```bash
+npm install
+npm test            # lint + format check + tests with coverage
+npm run test:watch  # watch mode
+npm run lint        # ESLint
+npm run format      # Prettier
 ```
-
-## Test
-
-`npm test`
-
-With coverage reporting:
-
-`npm test -- --coverage`
-
-With file watch:
-
-`npm run watch`
 
 ## License
 
-MIT
+[MIT](LICENSE) &copy; 2018-present Jason Cust

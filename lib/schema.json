@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "jsonapi.json",
   "title": "JSON API Request Validation",
   "description": "Validation schema for validating JSON API querystrings",
@@ -57,7 +57,7 @@
           "minimum": 0
         }
       },
-      "dependencies": {
+      "dependentRequired": {
         "offset": ["limit"],
         "number": ["size"]
       },
@@ -92,10 +92,14 @@
     "required": ["page"],
     "properties": {"page": {"required": ["cursor"]}}
   },
-  "then": {"not": {"anyOf": [
-    {"required": ["fields"]},
-    {"required": ["filter"]},
-    {"required": ["include"]},
-    {"required": ["sort"]}
-  ]}}
+  "then": {
+    "not": {
+      "anyOf": [
+        {"required": ["fields"]},
+        {"required": ["filter"]},
+        {"required": ["include"]},
+        {"required": ["sort"]}
+      ]
+    }
+  }
 }

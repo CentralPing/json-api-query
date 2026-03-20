@@ -1,28 +1,47 @@
 {
   "name": "@centralping/json-api-query",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
   "description": "A JSON API compliant query parameter validator.",
   "main": "lib/index.js",
-  "module": "lib/main.js",
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js",
+    "./lib/*": "./lib/*.js"
+  },
+  "files": [
+    "lib/",
+    "LICENSE",
+    "README.md"
+  ],
   "engines": {
-    "node": ">=10"
+    "node": ">=22"
   },
   "scripts": {
-    "lint": "eslint \"${INIT_CWD}/**/*.js\"",
-    "watch": "npm test -- --watch --coverage",
-    "docs": "jsdoc2md -t docs/readme.hbs --files lib/*.js > README.md",
-    "pretest": "npm run lint",
-    "test": "jest",
-    "preversion": "npm test -- --coverage",
-    "version": "changelog -s v${npm_package_version} && git add CHANGELOG.md && git commit -m \"chore(changelog): update changelog for v${npm_package_version}\"",
-    "postversion": "coveralls < coverage/lcov.info && git push && git push --tags"
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.js\"",
+    "format:check": "prettier --check \"**/*.js\"",
+    "pretest": "npm run lint && npm run format:check",
+    "test": "c8 node --test \"**/*.spec.unit.js\"",
+    "test:watch": "node --test --watch \"**/*.spec.unit.js\"",
+    "preversion": "npm test",
+    "prepublishOnly": "npm test",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CentralPing/json-api-query"
+    "url": "git+https://github.com/CentralPing/json-api-query.git"
   },
   "keywords": [
     "querystring",
@@ -36,38 +55,41 @@
     "url": "https://github.com/CentralPing/json-api-query/issues"
   },
   "homepage": "https://github.com/CentralPing/json-api-query",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/jasoncust"
+  },
   "dependencies": {
-    "ajv": "^6.5.5",
-    "esm": "^3.0.84"
+    "ajv": "^8.18.0"
   },
   "devDependencies": {
-    "coveralls": "^3.0.2",
-    "eslint": "^6.0.0",
-    "eslint-config-google": "^0.13.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^22.15.2",
-    "eslint-plugin-node": "^10.0.0",
-    "generate-changelog": "git+https://github.com/JasonCust/generate-changelog.git",
-    "jest": "^23.6.0",
-    "jsdoc-to-markdown": "^5.0.0"
+    "@eslint/js": "^10.0.1",
+    "c8": "^11.0.0",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.4.0",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
+    "simple-git-hooks": "^2.12.1"
   },
-  "jest": {
-    "testEnvironment": "node",
-    "verbose": true,
-    "collectCoverage": false,
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 100,
-        "lines": 80,
-        "statements": -10
-      }
-    },
-    "collectCoverageFrom": [
-      "**/*.js",
-      "!**/node_modules/**",
-      "!**/coverage/**"
+  "c8": {
+    "include": [
+      "lib/**/*.js"
     ],
-    "testRegex": ".*spec\\.(unit|func|int)\\.js"
+    "exclude": [
+      "**/*.spec.*.js",
+      "**/node_modules/**",
+      "**/coverage/**",
+      "eslint.config.js"
+    ],
+    "branches": 80,
+    "functions": 100,
+    "lines": 80,
+    "statements": 80,
+    "reporter": [
+      "text",
+      "lcov"
+    ],
+    "all": true
   }
 }
