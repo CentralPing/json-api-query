@@ -1,12 +1,35 @@
 language: en-US
+tone_instructions: >
+  Focus on JSON Schema 2020-12 correctness, AJV 8 usage patterns, and JSON:API
+  specification compliance for query parameter validation.
 reviews:
-  profile: chill
+  profile: assertive
   request_changes_workflow: true
   high_level_summary: true
+  high_level_summary_in_walkthrough: true
+  review_details: true
   poem: false
   review_status: true
+  related_issues: true
+  related_prs: true
+  assess_linked_issues: true
+  estimate_code_review_effort: true
+  path_instructions:
+    - path: "lib/**"
+      instructions: >
+        Core validation library. Pure ESM, AJV 8 with JSON Schema 2020-12.
+        Schema design must follow JSON:API spec for query parameters.
+        Vendored in ergo at lib/json-api-query/ — changes should be coordinated.
   auto_review:
     enabled: true
     drafts: false
 chat:
   auto_reply: true
+knowledge_base:
+  learnings:
+    scope: auto
+  linked_repositories:
+    - repository: "CentralPing/ergo"
+      instructions: >
+        ergo vendors this package at lib/json-api-query/. Schema or validation
+        changes in either repo should be synchronized.
