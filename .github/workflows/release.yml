@@ -15,6 +15,6 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
-      - run: npm install --ignore-scripts
+      - run: npm ci --ignore-scripts
       - run: npm test
       - run: npm publish --provenance
