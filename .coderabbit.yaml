@@ -1,12 +1,19 @@
 language: en-US
+early_access: true
+
 tone_instructions: >
   Focus on JSON Schema 2020-12 correctness, AJV 8 usage patterns, and JSON:API
-  specification compliance for query parameter validation.
+  specification compliance for query parameter validation. Verify schema design
+  follows JSON:API spec for query parameters and pagination strategy constraints.
+
 reviews:
   profile: assertive
   request_changes_workflow: true
   high_level_summary: true
   high_level_summary_in_walkthrough: true
+  collapse_walkthrough: false
+  changed_files_summary: true
+  sequence_diagrams: true
   review_details: true
   poem: false
   review_status: true
@@ -14,22 +21,185 @@ reviews:
   related_prs: true
   assess_linked_issues: true
   estimate_code_review_effort: true
+  prompt_for_ai_agents: true
+  abort_on_close: true
+
   path_instructions:
     - path: "lib/**"
       instructions: >
         Core validation library. Pure ESM, AJV 8 with JSON Schema 2020-12.
-        Schema design must follow JSON:API spec for query parameters.
-        Vendored in ergo at lib/json-api-query/ — changes should be coordinated.
+        Schema design must follow JSON:API spec for query parameters. Uses
+        dependentRequired (not draft-07 dependencies). Vendored in ergo at
+        lib/json-api-query/ — changes should be coordinated. Validation only —
+        no query string parsing (consumers use URL/URLSearchParams).
+
   auto_review:
     enabled: true
+    auto_incremental_review: true
     drafts: false
+    ignore_title_keywords:
+      - "WIP"
+      - "DO NOT MERGE"
+      - "[skip review]"
+
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+    simplify:
+      enabled: false
+
+  pre_merge_checks:
+    docstrings:
+      mode: "off"
+    title:
+      mode: "warning"
+      requirements: |
+        PR title must follow conventional commit format: `{type}: {description} (#{issue-number})`
+        where type is one of: feat, fix, refactor, docs, chore, test, spike.
+        Description should be lowercase, imperative mood, concise.
+    description:
+      mode: "off"
+    issue_assessment:
+      mode: "warning"
+    custom_checks:
+      - name: "JSON Schema Correctness"
+        mode: "warning"
+        instructions: |
+          Pass/fail criteria for changed files in lib/:
+          - FAIL if schema.json uses draft-07 keywords (e.g., `dependencies`) instead
+            of JSON Schema 2020-12 equivalents (e.g., `dependentRequired`).
+          - FAIL if schema changes break mutual exclusivity constraints for pagination
+            strategies (cursor, size/number, limit/offset are mutually exclusive).
+          - FAIL if custom parameter patternProperties does not enforce the JSON:API
+            requirement of at least one non-lowercase character.
+          - PASS if schema follows JSON Schema 2020-12 and JSON:API spec, or if no
+            schema files changed.
+
+      - name: "Zero Tech Debt"
+        mode: "warning"
+        instructions: |
+          Pass/fail criteria for all changed files:
+          - FAIL if new lines (added in this PR, not pre-existing) contain TODO, FIXME,
+            HACK, or XXX comments.
+          - PASS if no such patterns are found in newly added lines.
+          This is a pre-release project with a zero-tech-debt policy — all work is either
+          done now or tracked as a GitHub issue.
+
+  tools:
+    ast-grep:
+      essential_rules: true
+    github-checks:
+      enabled: true
+      timeout_ms: 300000
+    shellcheck:
+      enabled: true
+    markdownlint:
+      enabled: true
+    languagetool:
+      enabled: true
+      level: "default"
+    gitleaks:
+      enabled: true
+    trufflehog:
+      enabled: true
+    yamllint:
+      enabled: true
+    actionlint:
+      enabled: true
+    zizmor:
+      enabled: true
+    biome:
+      enabled: false
+    eslint:
+      enabled: false
+    oxc:
+      enabled: false
+    ruff:
+      enabled: false
+    pylint:
+      enabled: false
+    flake8:
+      enabled: false
+    golangci-lint:
+      enabled: false
+    clippy:
+      enabled: false
+    phpstan:
+      enabled: false
+    phpmd:
+      enabled: false
+    phpcs:
+      enabled: false
+    swiftlint:
+      enabled: false
+    rubocop:
+      enabled: false
+    detekt:
+      enabled: false
+    buf:
+      enabled: false
+    regal:
+      enabled: false
+    pmd:
+      enabled: false
+    clang:
+      enabled: false
+    cppcheck:
+      enabled: false
+    fortitude:
+      enabled: false
+    fbinfer:
+      enabled: false
+    sqlfluff:
+      enabled: false
+    hadolint:
+      enabled: false
+    circleci:
+      enabled: false
+    prisma-lint:
+      enabled: false
+    luacheck:
+      enabled: false
+    brakeman:
+      enabled: false
+    dotenv-lint:
+      enabled: false
+    htmlhint:
+      enabled: false
+    stylelint:
+      enabled: false
+    checkmake:
+      enabled: false
+    osv-scanner:
+      enabled: false
+    blinter:
+      enabled: false
+    smarty-lint:
+      enabled: false
+    ember-template-lint:
+      enabled: false
+    psscriptanalyzer:
+      enabled: false
+
 chat:
   auto_reply: true
+
 knowledge_base:
   learnings:
     scope: auto
+  issues:
+    scope: auto
+  pull_requests:
+    scope: auto
+  web_search:
+    enabled: true
+  code_guidelines:
+    enabled: true
   linked_repositories:
     - repository: "CentralPing/ergo"
       instructions: >
         ergo vendors this package at lib/json-api-query/. Schema or validation
-        changes in either repo should be synchronized.
+        changes in either repo should be synchronized. ergo's http/json-api-query.js
+        middleware wraps this module's validator.
