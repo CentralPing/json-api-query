@@ -17,6 +17,7 @@ reviews:
   sequence_diagrams: true
   review_details: true
   poem: false
+  fortune: false
   review_status: true
   related_issues: true
   related_prs: true
@@ -79,12 +80,13 @@ reviews:
             schema files changed.
 
       - name: "Zero Tech Debt"
-        mode: "warning"
+        mode: "error"
         instructions: |
-          Pass/fail criteria for all changed files:
-          - FAIL if new lines (added in this PR, not pre-existing) contain TODO, FIXME,
-            HACK, or XXX comments.
-          - PASS if no such patterns are found in newly added lines.
+          Pass/fail criteria for all changed files (exclude .coderabbit.yaml itself):
+          - FAIL if new lines (added in this PR, not pre-existing) contain unresolved
+            work-marker comments (the standard incomplete-task, needs-fix, workaround,
+            and attention-needed markers).
+          - PASS if no such markers are found in newly added lines.
           This is a pre-release project with a zero-tech-debt policy — all work is either
           done now or tracked as a GitHub issue.
 
@@ -174,7 +176,7 @@ reviews:
     checkmake:
       enabled: false
     osv-scanner:
-      enabled: false
+      enabled: true
     blinter:
       enabled: false
     smarty-lint:
@@ -198,9 +200,18 @@ knowledge_base:
     enabled: true
   code_guidelines:
     enabled: true
+  automatic_repository_linking: true
   linked_repositories:
     - repository: "CentralPing/ergo"
       instructions: >
         ergo vendors this package at lib/json-api-query/. Schema or validation
         changes in either repo should be synchronized. ergo's http/json-api-query.js
         middleware wraps this module's validator.
+
+issue_enrichment:
+  auto_enrich:
+    enabled: true
+  planning:
+    enabled: true
+    auto_planning:
+      enabled: true
