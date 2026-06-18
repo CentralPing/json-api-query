@@ -5,10 +5,25 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      dev-dependencies:
+      all-patches:
+        update-types:
+          - "patch"
+      dev-minor:
         dependency-type: "development"
-      production-dependencies:
+        update-types:
+          - "minor"
+      dev-major:
+        dependency-type: "development"
+        update-types:
+          - "major"
+      prod-minor:
         dependency-type: "production"
+        update-types:
+          - "minor"
+      prod-major:
+        dependency-type: "production"
+        update-types:
+          - "major"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
