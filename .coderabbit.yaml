@@ -82,9 +82,9 @@ reviews:
         mode: "error"
         instructions: |
           Pass/fail criteria for all changed files (exclude .coderabbit.yaml itself):
-          - FAIL if new lines (added in this PR, not pre-existing) contain unresolved
-            work-marker comments (the standard incomplete-task, needs-fix, workaround,
-            and attention-needed markers).
+          - FAIL if new source code lines (added in this PR, not pre-existing) contain
+            TODO, FIXME, HACK, or XXX comments. Exclude .coderabbit.yaml and other
+            CI/CD configuration files whose instructions reference these markers by name.
           - PASS if no such markers are found in newly added lines.
           This is a pre-release project with a zero-tech-debt policy — all work is either
           done now or tracked as a GitHub issue.
