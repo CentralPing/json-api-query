@@ -86,6 +86,17 @@ Creates a compiled validator function.
 
 A deep copy of the default JSON:API query schema. Clone with `structuredClone(schema)` before mutating.
 
+### `JSON_API_PAGE_STRATEGY_GROUPS`
+
+Readonly groups of JSON:API `page` parameter keys by pagination strategy
+(`number`/`size`, `offset`/`limit`, `cursor`). Re-exported from
+[`@centralping/ergo-wire`](https://www.npmjs.com/package/@centralping/ergo-wire)
+so validators and serializers share one source of truth.
+
+```js
+import {JSON_API_PAGE_STRATEGY_GROUPS} from '@centralping/json-api-query';
+```
+
 ## Notes
 
 - The request querystring is expected to have been parsed into an object before validation.

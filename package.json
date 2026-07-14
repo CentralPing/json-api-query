@@ -1,6 +1,6 @@
 {
   "name": "@centralping/json-api-query",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -20,7 +20,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "@centralping/ergo-wire": "github:CentralPing/ergo-wire#v0.1.0-beta.1",
+    "@centralping/ergo-wire": "^0.1.0-beta.2",
     "ajv": "^8.18.0"
   },
   "scripts": {
