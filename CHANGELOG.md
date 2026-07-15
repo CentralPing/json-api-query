@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - Unreleased
+
+### Added
+
+- Re-export `JSON_API_PAGE_STRATEGY_GROUPS` from `@centralping/ergo-wire` for shared
+  JSON:API pagination strategy constants (aligned with `schema.json` page keys).
+- `@centralping/ergo-wire` (`^0.1.0-beta.2`) as a runtime dependency.
+- Alignment unit tests that assert set equality between wire strategy keys and
+  `schema.json` page property keys.
+
+---
+
 ## [1.0.1] - 2026-05-27
 
 ### Fixed
